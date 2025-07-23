@@ -12,10 +12,66 @@ image-version: latest
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
+  - type: akmods
+    base: main
+    install:
+      - nvidia-open
+      - zenergy
+      - ryzen-smu
+
+  - type: bling
+    install:
+        - 1password # install 1Password (stable) and `op` CLI tool
+
   - type: files
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        enable:
+          - tofik/nwg-shell
+          - tofik/sway
+          - solopasha/hyprland
+          - yalter/niri
+          - markupstart/SwayOSD
+    install:
+      packages:
+        - mako
+        # Core Hyprland Components
+        - aquamarine
+        - hyprland
+        - xdg-desktop-portal-hyprland
+        # Extended Hyprland Services
+        - hyprcursor
+        - hyprsysteminfo
+        - hyprland-plugins
+        - hypridle
+        - hyprlock
+        - hyprpolkitagent
+        - hyprutils
+        - hyprland-qtutils
+        - hyprland-qt-support
+        # - nwg-look
+        # tofik/sway
+        - gtklock
+        - gtklock-userinfo-module
+        - gtklock-powerbar-module
+        - gammastep
+        - gammastep-indicator
+        - niri
+        - waybar
+        - xdg-desktop-portal-gtk
+        - swww
+        - gnome-disk-utility
+    group-install:
+      with-optional: false
+      packages:
+        - cosmic-desktop
+        - virtualization
 
   - type: rpm-ostree
     repos:
@@ -39,6 +95,25 @@ modules:
       remove:
         - org.gnome.eog
     user: {} # Also add Flathub user repo, but no user packages
+
+  - type: fonts
+    fonts:
+      nerd-fonts:
+        - FiraCode # don't add spaces or "Nerd Font" suffix.
+        - Hack
+        - SourceCodePro
+        - Terminus
+        - JetBrainsMono
+        - NerdFontsSymbolsOnly
+      google-fonts:
+        - Roboto
+        - Open Sans
+
+  - type: os-release
+    properties:
+      ID: cerulean_shift
+      NAME: CeruleanShift
+      PRETTY_NAME: Cerulean Shift
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
 
