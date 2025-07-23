@@ -6,7 +6,7 @@ name: cerulean-shift
 description: Fedora Universal Blue with Hyprland, Niri and Cosmic.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: ghcr.io/ublue-os/silverblue-nvidia
 image-version: latest
 
 # module configuration, executed in order
@@ -15,7 +15,6 @@ modules:
   - type: akmods
     base: main
     install:
-      - nvidia
       - zenergy
       - ryzen-smu
 
